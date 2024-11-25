@@ -4,18 +4,18 @@
       {
         "builtIn": 1,
         "datasource": {
-        "type": "datasource",
-        "uid": "$datasource"
+          "type": "datasource",
+          "uid": "$datasource"
         },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "target": {
-        "limit": 100,
-        "matchAny": false,
-        "tags": [],
-        "type": "dashboard"
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
         },
         "type": "dashboard"
       }
@@ -865,7 +865,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sort_desc(traces_span_metrics_duration_milliseconds_sum{span_kind=\"SPAN_KIND_SERVER\", service_name=\"$app\", http_status_code!=\"\", http_route=~\"$route\"} / traces_span_metrics_duration_milliseconds_count{span_kind=\"SPAN_KIND_SERVER\", service_name=\"$app\", http_status_code!=\"\", http_route=~\"$route\"})",
+          "expr": "sort_desc(sum by(span_name, http_method,http_route,http_status_code) (traces_span_metrics_duration_milliseconds_sum{span_kind=\"SPAN_KIND_SERVER\", service_name=\"$app\", http_status_code!=\"\", http_route=~\"$route\"}) /sum by(span_name, http_method,http_route,http_status_code)(traces_span_metrics_duration_milliseconds_count{span_kind=\"SPAN_KIND_SERVER\", service_name=\"$app\", http_status_code!=\"\", http_route=~\"$route\"}))",
           "instant": true,
           "legendFormat": "[{{http_status_code}}] {{span_name}}",
           "range": false,
@@ -1118,7 +1118,7 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-        },
+      },
       {
         "current": {},
         "datasource": {
